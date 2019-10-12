@@ -111,98 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ls
+# Target rules for targets named minishell
 
 # Build rule for target.
-ls: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ls
-.PHONY : ls
+minishell: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minishell
+.PHONY : minishell
 
 # fast build rule for target.
-ls/fast:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/build
-.PHONY : ls/fast
-
-src/display_files.o: src/display_files.c.o
-
-.PHONY : src/display_files.o
-
-# target to build an object file
-src/display_files.c.o:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/display_files.c.o
-.PHONY : src/display_files.c.o
-
-src/display_files.i: src/display_files.c.i
-
-.PHONY : src/display_files.i
-
-# target to preprocess a source file
-src/display_files.c.i:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/display_files.c.i
-.PHONY : src/display_files.c.i
-
-src/display_files.s: src/display_files.c.s
-
-.PHONY : src/display_files.s
-
-# target to generate assembly for a file
-src/display_files.c.s:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/display_files.c.s
-.PHONY : src/display_files.c.s
-
-src/dop_files.o: src/dop_files.c.o
-
-.PHONY : src/dop_files.o
-
-# target to build an object file
-src/dop_files.c.o:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.o
-.PHONY : src/dop_files.c.o
-
-src/dop_files.i: src/dop_files.c.i
-
-.PHONY : src/dop_files.i
-
-# target to preprocess a source file
-src/dop_files.c.i:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.i
-.PHONY : src/dop_files.c.i
-
-src/dop_files.s: src/dop_files.c.s
-
-.PHONY : src/dop_files.s
-
-# target to generate assembly for a file
-src/dop_files.c.s:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.s
-.PHONY : src/dop_files.c.s
-
-src/lists.o: src/lists.c.o
-
-.PHONY : src/lists.o
-
-# target to build an object file
-src/lists.c.o:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/lists.c.o
-.PHONY : src/lists.c.o
-
-src/lists.i: src/lists.c.i
-
-.PHONY : src/lists.i
-
-# target to preprocess a source file
-src/lists.c.i:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/lists.c.i
-.PHONY : src/lists.c.i
-
-src/lists.s: src/lists.c.s
-
-.PHONY : src/lists.s
-
-# target to generate assembly for a file
-src/lists.c.s:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/lists.c.s
-.PHONY : src/lists.c.s
+minishell/fast:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
+.PHONY : minishell/fast
 
 src/main.o: src/main.c.o
 
@@ -210,7 +129,7 @@ src/main.o: src/main.c.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/main.c.o
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -219,7 +138,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/main.c.i
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -228,35 +147,8 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/main.c.s
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/main.c.s
 .PHONY : src/main.c.s
-
-src/sort_files.o: src/sort_files.c.o
-
-.PHONY : src/sort_files.o
-
-# target to build an object file
-src/sort_files.c.o:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/sort_files.c.o
-.PHONY : src/sort_files.c.o
-
-src/sort_files.i: src/sort_files.c.i
-
-.PHONY : src/sort_files.i
-
-# target to preprocess a source file
-src/sort_files.c.i:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/sort_files.c.i
-.PHONY : src/sort_files.c.i
-
-src/sort_files.s: src/sort_files.c.s
-
-.PHONY : src/sort_files.s
-
-# target to generate assembly for a file
-src/sort_files.c.s:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/sort_files.c.s
-.PHONY : src/sort_files.c.s
 
 # Help Target
 help:
@@ -266,22 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... ls"
-	@echo "... src/display_files.o"
-	@echo "... src/display_files.i"
-	@echo "... src/display_files.s"
-	@echo "... src/dop_files.o"
-	@echo "... src/dop_files.i"
-	@echo "... src/dop_files.s"
-	@echo "... src/lists.o"
-	@echo "... src/lists.i"
-	@echo "... src/lists.s"
+	@echo "... minishell"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/sort_files.o"
-	@echo "... src/sort_files.i"
-	@echo "... src/sort_files.s"
 .PHONY : help
 
 

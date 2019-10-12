@@ -38,6 +38,7 @@ int					ft_count_words(char const *s, char c);
 int					ft_word_size(char const *s, char c);
 void				ft_striter(char *s, void (*f)(char *));
 int					ft_lower(int c);
+int					get_next_line(const int fd, char **line);
 long				ft_labs(long n);
 int					ft_isascii(int c);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));

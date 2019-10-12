@@ -65,39 +65,39 @@ CMAKE_SOURCE_DIR = /Users/mbrella/projects/minishell
 CMAKE_BINARY_DIR = /Users/mbrella/projects/minishell/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/ls.dir
+# Target rules for target CMakeFiles/minishell.dir
 
 # All Build rule for target.
-CMakeFiles/ls.dir/all:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/depend
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target ls"
-.PHONY : CMakeFiles/ls.dir/all
+CMakeFiles/minishell.dir/all:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/depend
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target minishell"
+.PHONY : CMakeFiles/minishell.dir/all
 
 # Include target in all.
-all: CMakeFiles/ls.dir/all
+all: CMakeFiles/minishell.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ls.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles 6
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ls.dir/all
+CMakeFiles/minishell.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/minishell.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/ls.dir/rule
+.PHONY : CMakeFiles/minishell.dir/rule
 
 # Convenience name for target.
-ls: CMakeFiles/ls.dir/rule
+minishell: CMakeFiles/minishell.dir/rule
 
-.PHONY : ls
-
-# clean rule for target.
-CMakeFiles/ls.dir/clean:
-	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/clean
-.PHONY : CMakeFiles/ls.dir/clean
+.PHONY : minishell
 
 # clean rule for target.
-clean: CMakeFiles/ls.dir/clean
+CMakeFiles/minishell.dir/clean:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/clean
+.PHONY : CMakeFiles/minishell.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/minishell.dir/clean
 
 .PHONY : clean
 
