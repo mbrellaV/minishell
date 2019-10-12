@@ -1,2 +1,2 @@
-# minishell
-42
+# ft_ls
+ls 42
