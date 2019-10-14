@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mbrella/projects/minishell
+CMAKE_SOURCE_DIR = /Users/mbrella/dop/minishell
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mbrella/projects/minishell/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mbrella/dop/minishell/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/dop/minishell/cmake-build-debug/CMakeFiles /Users/mbrella/dop/minishell/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/projects/minishell/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mbrella/dop/minishell/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,6 +123,33 @@ minishell/fast:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
 .PHONY : minishell/fast
 
+src/ft_exe.o: src/ft_exe.c.o
+
+.PHONY : src/ft_exe.o
+
+# target to build an object file
+src/ft_exe.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/ft_exe.c.o
+.PHONY : src/ft_exe.c.o
+
+src/ft_exe.i: src/ft_exe.c.i
+
+.PHONY : src/ft_exe.i
+
+# target to preprocess a source file
+src/ft_exe.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/ft_exe.c.i
+.PHONY : src/ft_exe.c.i
+
+src/ft_exe.s: src/ft_exe.c.s
+
+.PHONY : src/ft_exe.s
+
+# target to generate assembly for a file
+src/ft_exe.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/ft_exe.c.s
+.PHONY : src/ft_exe.c.s
+
 src/main.o: src/main.c.o
 
 .PHONY : src/main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... minishell"
+	@echo "... src/ft_exe.o"
+	@echo "... src/ft_exe.i"
+	@echo "... src/ft_exe.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
