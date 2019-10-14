@@ -27,5 +27,6 @@
 # include <sys/xattr.h>
 
 # define COUNT_FLAGS 6
+int		do_exe(char **mas);
 
 #endif
