@@ -150,6 +150,33 @@ src/cd_builtin.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/cd_builtin.c.s
 .PHONY : src/cd_builtin.c.s
 
+src/env_builtin.o: src/env_builtin.c.o
+
+.PHONY : src/env_builtin.o
+
+# target to build an object file
+src/env_builtin.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/env_builtin.c.o
+.PHONY : src/env_builtin.c.o
+
+src/env_builtin.i: src/env_builtin.c.i
+
+.PHONY : src/env_builtin.i
+
+# target to preprocess a source file
+src/env_builtin.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/env_builtin.c.i
+.PHONY : src/env_builtin.c.i
+
+src/env_builtin.s: src/env_builtin.c.s
+
+.PHONY : src/env_builtin.s
+
+# target to generate assembly for a file
+src/env_builtin.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/src/env_builtin.c.s
+.PHONY : src/env_builtin.c.s
+
 src/ft_exe.o: src/ft_exe.c.o
 
 .PHONY : src/ft_exe.o
@@ -216,6 +243,9 @@ help:
 	@echo "... src/cd_builtin.o"
 	@echo "... src/cd_builtin.i"
 	@echo "... src/cd_builtin.s"
+	@echo "... src/env_builtin.o"
+	@echo "... src/env_builtin.i"
+	@echo "... src/env_builtin.s"
 	@echo "... src/ft_exe.o"
 	@echo "... src/ft_exe.i"
 	@echo "... src/ft_exe.s"

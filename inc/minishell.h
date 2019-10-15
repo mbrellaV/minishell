@@ -30,5 +30,6 @@
 
 int		do_exe(char **mas);
 int     do_cd(char **mas);
+int     show_env(char **mas);
 
 #endif

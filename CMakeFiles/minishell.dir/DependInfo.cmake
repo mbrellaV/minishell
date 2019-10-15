@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/petruha2001/projects/minishell/src/cd_builtin.c" "/home/petruha2001/projects/minishell/CMakeFiles/minishell.dir/src/cd_builtin.c.o"
+  "/home/petruha2001/projects/minishell/src/env_builtin.c" "/home/petruha2001/projects/minishell/CMakeFiles/minishell.dir/src/env_builtin.c.o"
   "/home/petruha2001/projects/minishell/src/ft_exe.c" "/home/petruha2001/projects/minishell/CMakeFiles/minishell.dir/src/ft_exe.c.o"
   "/home/petruha2001/projects/minishell/src/main.c" "/home/petruha2001/projects/minishell/CMakeFiles/minishell.dir/src/main.c.o"
   )
