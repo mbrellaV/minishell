@@ -24,9 +24,11 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "time.h"
+#include <sys/wait.h>
 # include <sys/xattr.h>
 
-# define COUNT_FLAGS 6
+
 int		do_exe(char **mas);
+int     do_cd(char **mas);
 
 #endif

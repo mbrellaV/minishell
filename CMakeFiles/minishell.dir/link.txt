@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/minishell.dir/src/main.c.o CMakeFiles/minishell.dir/src/cd_builtin.c.o CMakeFiles/minishell.dir/src/ft_exe.c.o  -o minishell libft/libft.a 

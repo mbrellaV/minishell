@@ -1,0 +1,3 @@
+/home/petruha2001/projects/minishell/CMakeFiles/rebuild_cache.dir
+/home/petruha2001/projects/minishell/CMakeFiles/minishell.dir
+/home/petruha2001/projects/minishell/CMakeFiles/edit_cache.dir

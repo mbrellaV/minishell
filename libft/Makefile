@@ -21,7 +21,7 @@ INCLUDES = libft.h
 all: $(NAME)
 
 $(NAME):
-	@gcc -Wall -Wextra -Werror -I $(INCLUDES) -c $(SRC)
+	@gcc -Wall -Wextra  -c $(SRC)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)	
 	

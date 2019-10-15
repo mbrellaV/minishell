@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -20,16 +19,16 @@ int		parse_cmd(char *line)
 
 	if (!line || *line == '\0')
 		return (0);
-	if (!(mas = ft_strsplit(line, " \t")))
+	if (!(mas = ft_strsplit(line, ' ')))
 		return (-1);
 	if (ft_strcmp(mas[0], "exit") == 0)
 		return (-1);
 	if (ft_strcmp(mas[0], "cd") == 0)
-		return (-1);
+		do_cd(mas);
 	if (ft_strcmp(mas[0], "pwd") == 0)
 	{
 		getcwd(path, sizeof(path));
-		ft_printf(" %s ", path);
+		ft_printf("%s\n", path);
 	}
 	else
 		do_exe(mas);
@@ -42,16 +41,17 @@ int		minishell(char **envl)
 	char	*cmd;
 
 	getcwd(path, sizeof(path));
+	ft_printf("$> ");
 	while (1)
 	{
 		if (get_next_line(0, &cmd) != -1)
 		{
 			if (parse_cmd(cmd) == -1)
 				exit(0);
-			ft_printf("$>");
+			ft_printf("$> ");
 		}
-
 	}
+	return (0);
 }
 
 int		main(int argc, char **argv, char **envl)
