@@ -5,6 +5,14 @@ CMakeFiles/minishelln.dir/src/cd_builtin.c.o
  /Users/mbrella/projects/minishelln/inc/minishell.h
  /Users/mbrella/projects/minishelln/libft/libft.h
  /Users/mbrella/projects/minishelln/src/cd_builtin.c
+CMakeFiles/minishelln.dir/src/echo_builtin.c.o
+ /Users/mbrella/projects/minishelln/inc/minishell.h
+ /Users/mbrella/projects/minishelln/libft/libft.h
+ /Users/mbrella/projects/minishelln/src/echo_builtin.c
+CMakeFiles/minishelln.dir/src/echo_strsplit.c.o
+ /Users/mbrella/projects/minishelln/inc/minishell.h
+ /Users/mbrella/projects/minishelln/libft/libft.h
+ /Users/mbrella/projects/minishelln/src/echo_strsplit.c
 CMakeFiles/minishelln.dir/src/env_builtin.c.o
  /Users/mbrella/projects/minishelln/inc/minishell.h
  /Users/mbrella/projects/minishelln/libft/libft.h

@@ -1,88 +1,98 @@
 #include "../inc/minishell.h"
 
-static	void	*alldel(char **mas)
+int		isdelim(char *a, char b)
 {
-	while (*mas)
+	while (*a)
 	{
-		free(*mas);
-		mas++;
+		if (*a == b)
+			return (1);
+		if (b == '"' || b == 96)
+			return (2);
+		a++;
 	}
-	free(mas);
-	return (NULL);
-}
-
-int		ft_isdelim(char c, char delim)
-{
-	if (c == delim)
-		return (1);
 	return (0);
 }
 
-int		ft_count_words(char const *s, char c)
+int		c_size(char *str, char b)
 {
-	unsigned int cn;
-
-	cn = 0;
-	if (!s && !c)
-		return (cn);
-	while (*s)
-	{
-		while (ft_isdelim(*s, c) && *s)
-			s++;
-		if (*s != '\0')
-			cn++;
-		while (!(ft_isdelim(*s, c)) && *s)
-			s++;
-	}
-	return (cn);
-}
-
-char	*ft_strsep(char *s, const char delim)
-{
-	char			*dops;
-	unsigned int	i;
-	char			dopdelim;
-
-	dopdelim = (char)delim;
-	if (!s || !delim)
-		return (NULL);
-	if (!(dops = (char *)malloc(ft_word_size(s, dopdelim) + 1)))
-		return (NULL);
-	i = 0;
-	while (!ft_isdelim(*s, dopdelim) && *s)
-	{
-		dops[i] = *s;
-		s++;
-		i++;
-	}
-	dops[i] = '\0';
-	return (dops);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	char				**mas;
-	unsigned int		i;
-	unsigned int		cn;
+	int i;
 
 	i = 0;
-	cn = 0;
-	if (!s || !c)
-		return (NULL);
-	if (!(mas = (char **)malloc(sizeof(char *) * ft_count_words(s, c) + 1)))
-		return (NULL);
-	while (s[cn])
+	while (*str && *str != b)
 	{
-		while (ft_isdelim(s[cn], c) && s[cn])
-			cn++;
-		if (s[cn] != '\0')
-			if (!(mas[i] = ft_strsep((char*)(s + cn), (const char)c)))
-				return (alldel(mas));
-		if (s[cn] == '\0')
-			i--;
-		while (!ft_isdelim(s[cn], c) && s[cn])
-			cn++;
 		i++;
+		str++;
+	}
+	if (*str == '\0')
+		return (-1);
+	return (i);
+}
+
+int		word_size(char *str)
+{
+	int i;
+
+	i = 0;
+	if (isdelim("\t ", *str) == 2)
+		c_size(str, *str);
+	if (isdelim("\t ", str[0]) || *str == '\0')
+		return (0);
+	while (*str)
+	{
+		if (isdelim("\t ", *str))
+			return (i);
+		i++;
+		str++;
+	}
+	return (i);
+}
+
+int		count_words(char *str)
+{
+	int i;
+
+	i = 0;
+	while(*str)
+	{
+		if (word_size(str) == 1)
+		{
+			str += word_size(str);
+			i++;
+		}
+		else
+			str++;
+	}
+	return (i);
+}
+
+char	**ft_split_echo(char *str)
+{
+	char	**mas;
+	int		cn;
+	int		i;
+	int		cn_words;
+
+	cn_words = count_words(str) + 1;
+	ft_printf(" %d ", cn_words);
+	if (cn_words == 0)
+		return (NULL);
+	i = 0;
+	cn = 0;
+	mas = (char **)malloc(sizeof(char **) * cn_words);
+	while (i < (cn_words - 1) && str[cn])
+	{
+
+		if (word_size(str + cn) != 0 && str[cn])
+		{
+			ft_printf(" 1: len: %d cn: %d ", word_size(str + cn) + cn, cn);
+			mas[i] = ft_strsub(str, cn, word_size(str + cn) + cn);
+			ft_printf(" str: %s ", mas[i]);
+			cn += word_size(str + cn);
+			i++;
+		}
+		else
+			cn++;
+		ft_printf(" 2: len: %d cn: %d ", word_size(str + cn), cn);
 	}
 	mas[i] = NULL;
 	return (mas);

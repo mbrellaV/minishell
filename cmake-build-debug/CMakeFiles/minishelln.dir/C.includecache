@@ -42,19 +42,11 @@ stdlib.h
 unistd.h
 -
 
-/Users/mbrella/projects/minishelln/src/cd_builtin.c
+/Users/mbrella/projects/minishelln/src/echo_builtin.c
 ../inc/minishell.h
 /Users/mbrella/projects/minishelln/inc/minishell.h
 
-/Users/mbrella/projects/minishelln/src/env_builtin.c
-../inc/minishell.h
-/Users/mbrella/projects/minishelln/inc/minishell.h
-
-/Users/mbrella/projects/minishelln/src/ft_exe.c
-../inc/minishell.h
-/Users/mbrella/projects/minishelln/inc/minishell.h
-
-/Users/mbrella/projects/minishelln/src/main.c
+/Users/mbrella/projects/minishelln/src/echo_strsplit.c
 ../inc/minishell.h
 /Users/mbrella/projects/minishelln/inc/minishell.h
 

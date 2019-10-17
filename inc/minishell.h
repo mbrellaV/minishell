@@ -33,5 +33,6 @@ int     do_cd(char **mas);
 int     show_env(char **mas);
 int		find_exe(char **mas);
 int		do_echo(char *line);
+char	**ft_split_echo(char *str);
 
 #endif
