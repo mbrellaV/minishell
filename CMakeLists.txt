@@ -1,8 +1,15 @@
-cmake_minimum_required(VERSION 3.13)
-project(minishell)
+cmake_minimum_required(VERSION 3.14)
+project(minishelln C)
 
-set(CMAKE_CXX_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
-add_executable(minishell src/main.c src/env_builtin src/cd_builtin.c src/ft_exe.c inc/minishell.h )
+include_directories(inc)
 
-target_link_libraries(minishell ${CMAKE_SOURCE_DIR}/libft/libft.a)
+add_executable(minishelln
+        inc/minishell.h
+        src/cd_builtin.c
+        src/env_builtin.c
+        src/ft_exe.c
+        src/main.c src/echo_builtin.c src/echo_strsplit.c)
+
+target_link_libraries(minishelln ${CMAKE_SOURCE_DIR}/libft/libft.a)

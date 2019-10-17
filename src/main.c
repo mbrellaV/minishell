@@ -37,8 +37,10 @@ int		parse_cmd(char *line, char **env)
 		getcwd(path, sizeof(path));
 		ft_printf("%s\n", path);
 	}
-	else
-		do_exe(mas);
+	else if (ft_strcmp(mas[0], "echo") == 0)
+		do_echo();
+	else if (find_exe(mas) == -1)
+		ft_printf("zsh: command not found: %s\n", mas[0]);
 	return (0);
 }
 
