@@ -6,7 +6,7 @@ int		isdelim(char *a, char b)
 	{
 		if (*a == b)
 			return (1);
-		if (b == '"' || b == 96)
+		if (b == 34 || b == 96)
 			return (2);
 		a++;
 	}
@@ -33,13 +33,16 @@ int		word_size(char *str)
 	int i;
 
 	i = 0;
-	if (isdelim("\t ", *str) == 2)
-		c_size(str, *str);
-	if (isdelim("\t ", str[0]) || *str == '\0')
+	if (isdelim("\t \n", *str) == 2)
+	{
+		ft_printf("11111 ");
+		return (c_size(str, *str));
+	}
+	if (isdelim("\t \n", str[0]) || *str == '\0')
 		return (0);
 	while (*str)
 	{
-		if (isdelim("\t ", *str))
+		if (isdelim("\t \n", *str))
 			return (i);
 		i++;
 		str++;
@@ -59,6 +62,11 @@ int		count_words(char *str)
 			str += word_size(str);
 			i++;
 		}
+		else if (word_size(str) == 2)
+		{
+			str += word_size(str);
+			i++;
+		}
 		else
 			str++;
 	}
@@ -73,7 +81,7 @@ char	**ft_split_echo(char *str)
 	int		cn_words;
 
 	cn_words = count_words(str) + 1;
-	ft_printf(" %d ", cn_words);
+	ft_printf(" words: %d ", cn_words);
 	if (cn_words == 0)
 		return (NULL);
 	i = 0;
@@ -81,18 +89,15 @@ char	**ft_split_echo(char *str)
 	mas = (char **)malloc(sizeof(char **) * cn_words);
 	while (i < (cn_words - 1) && str[cn])
 	{
-
+		ft_printf(" len: %d %d ", word_size(str + cn), cn);
 		if (word_size(str + cn) != 0 && str[cn])
 		{
-			ft_printf(" 1: len: %d cn: %d ", word_size(str + cn) + cn, cn);
-			mas[i] = ft_strsub(str, cn, word_size(str + cn) + cn);
-			ft_printf(" str: %s ", mas[i]);
+			mas[i] = ft_strsub(str, cn, word_size(str + cn));
 			cn += word_size(str + cn);
 			i++;
 		}
 		else
 			cn++;
-		ft_printf(" 2: len: %d cn: %d ", word_size(str + cn), cn);
 	}
 	mas[i] = NULL;
 	return (mas);
