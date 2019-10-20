@@ -31,8 +31,8 @@
 int		do_exe(char **mas);
 int     do_cd(char **mas);
 int     show_env(char **mas);
-int		find_exe(char **mas);
+int		find_exe(char *dir_name, char *filename);
 int		do_echo(char *line);
-char	**ft_split_echo(char *str);
+char	**ft_split_echo(char *str, char *delim);
 
 #endif

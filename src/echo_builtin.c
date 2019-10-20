@@ -14,7 +14,7 @@ int		do_echo(char *line)
 	while (mas[i])
 	{
 		//ft_printf("i: %d ", i);
-		ft_printf("|%s|", mas[i]);
+		ft_putstr(mas[i]);
 		//ft_putstr(mas[i]);
 		ft_putchar(' ');
 		i++;
