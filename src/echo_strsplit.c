@@ -61,7 +61,7 @@ int		count_words(char *str, char *delim)
 	{
 		if (word_size(str, delim) > 0)
 		{
-			str += word_size(str, delim) + 1;
+			str += word_size(str, delim) + (*str == 34 ? 1 : 0);
 			i++;
 		}
 		else
@@ -88,7 +88,7 @@ char	**ft_split_echo(char *str, char *delim)
 		if (word_size(str + cn, delim) != 0 && str[cn])
 		{
 			mas[i] = ft_strsub(str, cn + (str[cn] == 34 ? 1 : 0), word_size(str + cn, delim));
-			cn += word_size(str + cn, delim);
+			cn += word_size(str + cn, delim) + (str[cn] == 34 ? 1 : 0) + 1;
 			i++;
 		}
 		else

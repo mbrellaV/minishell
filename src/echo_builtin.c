@@ -9,13 +9,11 @@ int		do_echo(char *line)
 	i = 1;
 	if (!line || *line == '\0')
 		return (0);
-	if (!(mas = ft_split_echo(line)))
+	if (!(mas = ft_split_echo(line, " \t")))
 		return (-1);
 	while (mas[i])
 	{
-		//ft_printf("i: %d ", i);
 		ft_putstr(mas[i]);
-		//ft_putstr(mas[i]);
 		ft_putchar(' ');
 		i++;
 	}

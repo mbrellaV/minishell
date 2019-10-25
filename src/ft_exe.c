@@ -17,14 +17,14 @@ int		find_last(char *line, char c)
 	return (res);
 }
 
-int		do_exe(char **mas)
+int		do_exe(char **mas, char **envl)
 {
 	pid_t pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(mas[0], mas, NULL) == -1)
+		if (execve(mas[0], mas, envl) == -1)
 			return (-1);
 	}
 	else if (pid == -1)
@@ -42,7 +42,6 @@ int		find_exe(char *dir_name, char *filename)
 	struct dirent	*pdirent;
 	DIR				*dire;
 
-
 	if (!(dire = opendir(dir_name)))
 	{
 		ft_printf("ls: %sl: ", dir_name);
@@ -50,8 +49,8 @@ int		find_exe(char *dir_name, char *filename)
 	}
 	while ((pdirent = readdir(dire)) != NULL)
 	{
-		if (ft_strcmp(pdirent->d_name, filename) == 0)
-			return (1);
+		if (ft_strstr(pdirent->d_name, filename) == pdirent->d_name)
+            return (1);
 	}
 	ft_strdel(&dir_name);
 	closedir(dire);
@@ -63,41 +62,49 @@ int		full_exe(char **mas, char **envl)
 	char	*dir_name;
 	char	*filename;
 	int		i;
+	int     d;
 	char	**dopmas;
 
 	i = 0;
-	if (ft_strstr(mas[0], "/"))
+	d = 0;
+	if (find_last(mas[0], '/') != -1)
 	{
 		if (!(dir_name = ft_strsub(mas[0], 0, find_last(mas[0], '/'))))
 			return (-1);
 		if (!(filename = ft_strsub(mas[0], find_last(mas[0], '/') + 1, ft_strlen(mas[0]))))
 			return (-1);
 		if (find_exe(dir_name, filename))
-			do_exe(mas);
+        {
+            ft_printf("%s", mas[0]);
+            do_exe(mas, envl);
+            return (1);
+        }
 	}
 	else
 	{
-		while (envl[i])
+		while (envl[d])
 		{
-			if ((dopmas = ft_split_echo(envl[i], "=:")))
+            //ft_printf(" %s ", envl[d]);
+			if ((dopmas = ft_split_echo(envl[d], "=:")))
 			{
-				if (ft_strcmp(dopmas[0], "PATH") == 0)
+                if (ft_strcmp(dopmas[0], "PATH") == 0)
 				{
 					i = 1;
 					while (dopmas[i])
 					{
 						if (find_exe(dopmas[i], mas[0]))
 						{
-							mas[0] = ft_strjoin(dopmas[i], mas[0]);
-							do_exe(mas);
+							mas[0] = ft_strjoin(ft_strjoin(dopmas[i], "/"), mas[0]);
+                            ft_printf(" %s ", mas[0]);
+							do_exe(mas, envl);
 							return (1);
 						}
 						i++;
 					}
 				}
-
 			}
+			d++;
 		}
 	}
-	return (0);
+	return (-1);
 }

@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 project(minishelln C)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
 
 include_directories(inc)
+include_directories(src)
+include_directories(libft)
 
 add_executable(minishelln
         inc/minishell.h

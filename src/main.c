@@ -27,11 +27,6 @@ int		parse_cmd(char *line, char **env)
 		show_env(env);
 	else if (ft_strcmp(mas[0], "cd") == 0)
 		do_cd(mas);
-	else if (ft_strcmp(mas[0], "ls") == 0)
-	{
-		mas[0] = "/bin/ls";
-		do_exe(mas);
-	}
 	else if (ft_strcmp(mas[0], "pwd") == 0)
 	{
 		getcwd(path, sizeof(path));
@@ -39,7 +34,7 @@ int		parse_cmd(char *line, char **env)
 	}
 	else if (ft_strcmp(mas[0], "echo") == 0)
 		do_echo(line);
-	else if (find_exe(mas) == -1)
+	else if (full_exe(mas, env) == -1)
 		ft_printf("zsh: command not found: %s\n", mas[0]);
 	return (0);
 }
@@ -60,7 +55,6 @@ int		minishell(char **envl)
 			ft_printf("$> ");
 		}
 	}
-	return (0);
 }
 
 int		main(int argc, char **argv, char **envl)

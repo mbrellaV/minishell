@@ -27,12 +27,15 @@
 #include <sys/wait.h>
 # include <sys/xattr.h>
 
+# define HOMEPATH "/cygdrive/d"
 
-int		do_exe(char **mas);
+int		do_exe(char **mas, char **envl);
 int     do_cd(char **mas);
 int     show_env(char **mas);
 int		find_exe(char *dir_name, char *filename);
 int		do_echo(char *line);
+int		full_exe(char **mas, char **envl);
+char	**ft_setenv(char **mas, char ***envl);
 char	**ft_split_echo(char *str, char *delim);
 
 #endif
