@@ -2,7 +2,7 @@
 
 int		del_mas()
 {
-
+    return (0);
 }
 
 int		sort_env(char **mas)
@@ -34,37 +34,40 @@ int		sort_env(char **mas)
 	return (0);
 }
 
-char	**full_env(char **mas, char ***envl)
+int     full_env(char **mas, char ***envl)
 {
 	int		len;
 	char	**dopenvl;
-	char	**dopmas;
-	char	**tmp;
+	char	*dopstr;
 
-	if (ft_strcmp(mas[0], "env"))
+	//ft_printf("%d %s ", ft_strcmp(mas[0], "env"), mas[0]);
+	dopenvl = *envl;
+	if (ft_strcmp(mas[0], "env") == 0)
 	{
-		show_env(mas);
-		return (NULL);
+		show_env(*envl);
+		return (0);
 	}
-	if (ft_strcmp(mas[0], "setenv"))
-		return (ft_setenv(mas, envl));
 	else
 	{
 		len = 0;
-		while (*envl[len])
+		while (dopenvl[len] != NULL)
 		{
-			dopmas = ft_split_echo(*envl[len], "=");
-			tmp = dopmas;
-			if (ft_strcmp(dopmas[0], mas[1]) == 0)
-				*envl[len][0] = -128;
+			dopstr = ft_strjoin(mas[1], "=");
+			if (ft_strstr(dopenvl[len], dopstr) == dopenvl[len])
+				dopenvl[len][0] = -128;
 			len++;
-			ft_strdel(tmp);
+			ft_strdel(&dopstr);
 		}
-		return (ft_setenv(mas, envl));
+		*envl = dopenvl;
+        if (ft_strcmp(mas[0], "setenv") == 0)
+            return (ft_setenv(mas, envl, *envl, 1));
+        else if (ft_strcmp(mas[0], "unsetenv") == 0)
+		    return (ft_setenv(mas, envl, *envl, 0));
 	}
+	return (0);
 }
 
-char	**ft_setenv(char **mas, char ***envl)
+int     ft_setenv(char **mas, char ***envl, char **dopmas, int type)
 {
 	int		len;
 	int		i;
@@ -74,29 +77,40 @@ char	**ft_setenv(char **mas, char ***envl)
 	len = 0;
 	i = 0;
 	c = 0;
-	while (envl[len])
+	while (dopmas[i])
 	{
-		if (*envl[len][0] == -128)
+		if (dopmas[i][0] == -128)
 			len--;
 		len++;
+		i++;
 	}
-	dopenvl = (char **)malloc(sizeof(char **) * (len + 2));
-	while (i < len)
+	i = 0;
+	dopenvl = (char **)malloc(sizeof(char **) * (len + 1 + type));
+	while (dopmas[c] != NULL)
 	{
-		if (*envl[i][0] != -128)
+	    ft_printf(" %d %d %s\n", i, c, dopmas[c]);
+		if (dopmas[c][0] != -128)
 		{
-			dopenvl[i] = (char *)malloc(sizeof(char *) * ft_strlen(*envl[i]));
-			ft_strcpy(dopenvl[i], *envl[c]);
+
+			dopenvl[i] = (char *)malloc(sizeof(char *) * ft_strlen(dopmas[c]));
+			ft_strcpy(dopenvl[i], dopmas[c]);
+			dopenvl[i][ft_strlen(dopmas[c]) + 1] = '\0';
+            ft_printf(" %s\n", dopenvl[i]);
 			i++;
 		}
 		c++;
 	}
-	dopenvl[i] = (char *)malloc(sizeof(char *) * (ft_strlen(mas[1]) + ft_strlen(mas[2]) + 2));
-	ft_strcat(dopenvl[i], mas[1]);
-	ft_strcat(dopenvl[i], "=");
-	ft_strcat(dopenvl[i], mas[2]);
+	if (type == 1)
+    {
+        dopenvl[i] = (char *)malloc(sizeof(char *) * (ft_strlen(mas[1]) + ft_strlen(mas[2]) + 2));
+        ft_strcat(dopenvl[i], mas[1]);
+        ft_strcat(dopenvl[i], "=");
+        ft_strcat(dopenvl[i], mas[2]);
+        i++;
+    }
+	dopenvl[i] = NULL;
 	*envl = dopenvl;
-	return (dopenvl);
+	return (0);
 }
 
 int     show_env(char **mas)

@@ -21,7 +21,6 @@ char	*ft_parse_cd(char **mas)
 		i++;
 		c++;
 	}
-	ft_printf("%s", dopline);
 	return (dopline);
 }
 

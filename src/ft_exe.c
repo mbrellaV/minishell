@@ -19,21 +19,19 @@ int		find_last(char *line, char c)
 
 int		do_exe(char **mas, char **envl)
 {
-	pid_t pid;
-
-	pid = fork();
-	if (pid == 0)
+	g_pid = fork();
+	if (g_pid == 0)
 	{
 		if (execve(mas[0], mas, envl) == -1)
 			return (-1);
 	}
-	else if (pid == -1)
+	else if (g_pid == -1)
 	{
 		ft_printf("error");
 		return (-1);
 	}
 	else
-		wait(&pid);
+		wait(&g_pid);
 	return (0);
 }
 
@@ -44,12 +42,13 @@ int		find_exe(char *dir_name, char *filename)
 
 	if (!(dire = opendir(dir_name)))
 	{
-		ft_printf("ls: %sl: ", dir_name);
+		ft_printf("cant open: %sl: ", dir_name);
 		return (-1);
 	}
 	while ((pdirent = readdir(dire)) != NULL)
 	{
-		if (ft_strstr(pdirent->d_name, filename) == pdirent->d_name)
+		//if (ft_strstr(pdirent->d_name, filename) == pdirent->d_name)
+		if (ft_strcmp(pdirent->d_name, filename) == 0)
             return (1);
 	}
 	ft_strdel(&dir_name);
@@ -75,7 +74,6 @@ int		full_exe(char **mas, char **envl)
 			return (-1);
 		if (find_exe(dir_name, filename))
         {
-            ft_printf("%s", mas[0]);
             do_exe(mas, envl);
             return (1);
         }
@@ -84,25 +82,22 @@ int		full_exe(char **mas, char **envl)
 	{
 		while (envl[d])
 		{
-            //ft_printf(" %s ", envl[d]);
-			if ((dopmas = ft_split_echo(envl[d], "=:")))
-			{
-                if (ft_strcmp(dopmas[0], "PATH") == 0)
-				{
-					i = 1;
-					while (dopmas[i])
-					{
-						if (find_exe(dopmas[i], mas[0]))
-						{
-							mas[0] = ft_strjoin(ft_strjoin(dopmas[i], "/"), mas[0]);
-                            ft_printf(" %s ", mas[0]);
-							do_exe(mas, envl);
-							return (1);
-						}
-						i++;
-					}
-				}
-			}
+            if (ft_strstr(envl[d], "PATH=") == envl[d])
+            {
+                if (!(dopmas = ft_split_echo(envl[d], "=: ")))
+                    return (-1);
+                i = 1;
+                while (dopmas[i])
+                {
+                    if (find_exe(dopmas[i], mas[0]))
+                    {
+                        mas[0] = ft_strjoin(ft_strjoin(dopmas[i], "/"), mas[0]);
+                        do_exe(mas, envl);
+                        return (1);
+                    }
+                    i++;
+                }
+            }
 			d++;
 		}
 	}

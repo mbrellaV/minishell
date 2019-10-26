@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "../libft/libft.h"
+# include <signal.h>
 # include "pwd.h"
 # include "grp.h"
 # include <sys/stat.h>
@@ -27,15 +28,17 @@
 #include <sys/wait.h>
 # include <sys/xattr.h>
 
-# define HOMEPATH "/cygdrive/d"
+# define HOMEPATH "/Users/mbrella"
 
+pid_t	g_pid;
 int		do_exe(char **mas, char **envl);
 int     do_cd(char **mas);
 int     show_env(char **mas);
 int		find_exe(char *dir_name, char *filename);
-int		do_echo(char *line);
+int		do_echo(char *line, char **envl);
 int		full_exe(char **mas, char **envl);
-char	**ft_setenv(char **mas, char ***envl);
+int     ft_setenv(char **mas, char ***envl, char **dopmas, int type);
 char	**ft_split_echo(char *str, char *delim);
+int     full_env(char **mas, char ***envl);
 
 #endif
