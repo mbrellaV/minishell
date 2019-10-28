@@ -19,14 +19,16 @@ int		parse_cmd(char *line, char ***env)
 
 	if (!line || *line == '\0')
 		return (0);
-	if (!(mas = ft_strsplit(line, ' ')))
+	if (!(mas = ft_split_echo(line, " \t")))
 		return (-1);
+	if (*mas == NULL)
+		return (0);
 	if (ft_strcmp(mas[0], "exit") == 0)
 		return (-1);
 	else if (ft_strstr(mas[0], "env"))
 	    full_env(mas, env);
 	else if (ft_strcmp(mas[0], "cd") == 0)
-		do_cd(mas);
+		do_cd(mas, env);
 	else if (ft_strcmp(mas[0], "pwd") == 0)
 	{
 		getcwd(path, sizeof(path));
@@ -43,12 +45,13 @@ void	kill_pid()
 {
 	if (g_pid == -100)
 	{
-		ft_printf("\r$>   ");
+
+		ft_printf("\r$>    ");
 		ft_printf("\n$> ");
 	}
 	else
 	{
-		kill(g_pid, SIGUSR1);
+		kill(g_pid, SIGINT);
 		ft_putchar('\n');
 	}
 	//ft_putchar('\n');
@@ -71,6 +74,7 @@ int		minishell(char ***envl)
 			if (parse_cmd(cmd, envl) == -1)
 				exit(0);
 			ft_printf("$> ");
+			//signal(SIGINT, kill_pid);
 		}
 	}
 }

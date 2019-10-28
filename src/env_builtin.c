@@ -1,10 +1,5 @@
 #include "../inc/minishell.h"
 
-int		del_mas()
-{
-    return (0);
-}
-
 int		sort_env(char **mas)
 {
 	int 	d;
@@ -85,17 +80,16 @@ int     ft_setenv(char **mas, char ***envl, char **dopmas, int type)
 		i++;
 	}
 	i = 0;
-	dopenvl = (char **)malloc(sizeof(char **) * (len + 1 + type));
+	if (!(dopenvl = (char **)malloc(sizeof(char **) * (len + 1 + type))))
+		return (-1);
 	while (dopmas[c] != NULL)
 	{
-	    ft_printf(" %d %d %s\n", i, c, dopmas[c]);
 		if (dopmas[c][0] != -128)
 		{
 
 			dopenvl[i] = (char *)malloc(sizeof(char *) * ft_strlen(dopmas[c]));
 			ft_strcpy(dopenvl[i], dopmas[c]);
 			dopenvl[i][ft_strlen(dopmas[c]) + 1] = '\0';
-            ft_printf(" %s\n", dopenvl[i]);
 			i++;
 		}
 		c++;
@@ -109,6 +103,7 @@ int     ft_setenv(char **mas, char ***envl, char **dopmas, int type)
         i++;
     }
 	dopenvl[i] = NULL;
+	//free_dmas(dopmas);
 	*envl = dopenvl;
 	return (0);
 }

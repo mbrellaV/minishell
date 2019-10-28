@@ -12,7 +12,7 @@
 
 FLAGS=-Wall -Wextra -Werror
 
-SRC=src/cd_builtin.c src/env_builtin.c src/ft_exe.c src/main.c src/echo_builtin.c src/echo_strsplit.c
+SRC=src/cd_builtin.c src/env_builtin.c src/ft_exe.c src/main.c src/echo_builtin.c src/echo_strsplit.c src/free_str.c
 
 HEADER=-I inc/minishell.h
 

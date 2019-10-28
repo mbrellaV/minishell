@@ -28,15 +28,16 @@
 #include <sys/wait.h>
 # include <sys/xattr.h>
 
-# define HOMEPATH "/Users/mbrella"
 
 pid_t	g_pid;
 int		do_exe(char **mas, char **envl);
-int     do_cd(char **mas);
+int     do_cd(char **mas, char ***envl);
 int     show_env(char **mas);
+char	*find_var(char *dop, char **envl);
 int		find_exe(char *dir_name, char *filename);
 int		do_echo(char *line, char **envl);
 int		full_exe(char **mas, char **envl);
+int		free_dmas(char **mas);
 int     ft_setenv(char **mas, char ***envl, char **dopmas, int type);
 char	**ft_split_echo(char *str, char *delim);
 int     full_env(char **mas, char ***envl);

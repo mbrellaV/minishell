@@ -32,6 +32,7 @@ int		do_exe(char **mas, char **envl)
 	}
 	else
 		wait(&g_pid);
+	//exit(0);
 	return (0);
 }
 
@@ -49,7 +50,8 @@ int		find_exe(char *dir_name, char *filename)
 	{
 		//if (ft_strstr(pdirent->d_name, filename) == pdirent->d_name)
 		if (ft_strcmp(pdirent->d_name, filename) == 0)
-            return (1);
+			return (1);
+
 	}
 	ft_strdel(&dir_name);
 	closedir(dire);
