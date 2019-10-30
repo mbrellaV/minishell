@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_str.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 07:44:03 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/30 07:44:04 by mbrella          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-int		free_dmas(char **mas)
+int		free_dmas(char ***mas)
 {
-	int i;
+	int		i;
+	char	**dopmas;
 
-	i = 0;
 	if (!mas)
 		return (0);
-	while (mas[i])
+	i = 0;
+	dopmas = *mas;
+	while (dopmas[i])
 	{
-		ft_strdel(&mas[i]);
+		ft_strdel(&dopmas[i]);
 		i++;
 	}
-	free(mas);
+	free(dopmas);
 	return (0);
 }

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_FT_LS_H
-# define FT_LS_FT_LS_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <dirent.h>
@@ -25,21 +25,29 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include "time.h"
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include <sys/xattr.h>
 
+# define ISPAR(x)  (x == 34 || x == 39 ? 1 : 0)
 
 pid_t	g_pid;
+
 int		do_exe(char **mas, char **envl);
-int     do_cd(char **mas, char ***envl);
-int     show_env(char **mas);
+int		ft_maslen(char **mas);
+int		ft_maslen_with(char **mas);
+int		do_cd(char **mas, char ***envl);
+int		show_env(char **mas);
 char	*find_var(char *dop, char **envl);
+int		find_last(char *line, char c);
 int		find_exe(char *dir_name, char *filename);
+int		ft_error_with(int caseerror, char ***mas);
 int		do_echo(char *line, char **envl);
+int		print_path();
+int		ft_error(int caseerror);
 int		full_exe(char **mas, char **envl);
-int		free_dmas(char **mas);
-int     ft_setenv(char **mas, char ***envl, char **dopmas, int type);
+int		free_dmas(char ***mas);
+int		ft_setenv(char **mas, char ***envl, char **dopmas, int type);
 char	**ft_split_echo(char *str, char *delim);
-int     full_env(char **mas, char ***envl);
+int		full_env(char **mas, char ***envl);
 
 #endif

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo_builtin.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 07:46:29 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/30 07:46:30 by mbrella          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
@@ -30,25 +41,53 @@ char	*find_var(char *dop, char **envl)
 	{
 		if (ft_strstr(envl[i], dopd) == envl[i])
 		{
-			dop = ft_strsub(envl[i], ft_strlen(dopd), ft_strlen(envl[i]) - ft_strlen(dopd));
+			if (!(dop = ft_strsub(envl[i], ft_strlen(dopd),
+					ft_strlen(envl[i]) - ft_strlen(dopd))))
+				return (NULL);
 			ft_strdel(&dopd);
 			return (dop);
 		}
 		i++;
 	}
+	ft_strdel(&dopd);
 	return (NULL);
+}
+
+int		dop_echo(char **mas, int i, int c, char **envl)
+{
+	char	*dop;
+	char	*tmp;
+
+	while (mas[i][c])
+	{
+		if (mas[i][c] == '$')
+		{
+			if (!(dop = ft_strsub(mas[i], c + 1,
+				ft_strfind_indexd(&mas[i][c + 1], '$') == -1
+			? ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$'))))
+				return (ft_error(15));
+			if (!(tmp = find_var(dop, envl)))
+				return (-1);
+			c += ft_strfind_indexd(&mas[i][c + 1], '$') == -1 ?
+			(int)ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$');
+			ft_strdel(&dop);
+			ft_putstr(tmp);
+			ft_strdel(&tmp);
+		}
+		else
+			ft_putchar(mas[i][c]);
+		c++;
+	}
+	return (0);
 }
 
 int		do_echo(char *line, char **envl)
 {
 	char	**mas;
 	int		i;
-	int     c;
-	char    *dop;
-	char	*tmp;
+	int		c;
 
 	i = 1;
-	c = 0;
 	if (!line || *line == '\0')
 		return (0);
 	if (!(mas = ft_split_echo(line, " \t")))
@@ -56,26 +95,12 @@ int		do_echo(char *line, char **envl)
 	while (mas[i])
 	{
 		c = 0;
-	    while (mas[i][c])
-        {
-	        if (mas[i][c] == '$')
-			{
-				dop = ft_strsub(mas[i], c + 1, ft_strfind_indexd(&mas[i][c + 1], '$') == -1
-				? ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$'));
-				tmp = find_var(dop, envl);
-				c += ft_strfind_indexd(&mas[i][c + 1], '$') == -1
-					 ? (int)ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$');
-				ft_strdel(&dop);
-				ft_putstr(tmp);
-				ft_strdel(&tmp);
-			}
-	        else
-				ft_putchar(mas[i][c]);
-	        c++;
-        }
-	    ft_putchar(' ');
+		if (dop_echo(mas, i, c, envl) == -1)
+			return (-1);
+		ft_putchar(' ');
 		i++;
 	}
+	free_dmas(&mas);
 	ft_putchar('\n');
 	return (0);
 }

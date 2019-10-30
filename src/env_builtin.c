@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_builtin.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 06:05:20 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/30 06:05:23 by mbrella          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 int		sort_env(char **mas)
 {
-	int 	d;
-	int 	i;
+	int		d;
+	int		i;
 	int		len;
 	char	*dop;
 
@@ -29,65 +41,68 @@ int		sort_env(char **mas)
 	return (0);
 }
 
-int     full_env(char **mas, char ***envl)
+int		full_env(char **mas, char ***envl)
 {
 	int		len;
 	char	**dopenvl;
 	char	*dopstr;
 
-	//ft_printf("%d %s ", ft_strcmp(mas[0], "env"), mas[0]);
 	dopenvl = *envl;
 	if (ft_strcmp(mas[0], "env") == 0)
-	{
-		show_env(*envl);
-		return (0);
-	}
+		return (show_env(*envl));
 	else
 	{
 		len = 0;
 		while (dopenvl[len] != NULL)
 		{
-			dopstr = ft_strjoin(mas[1], "=");
+			if (!(dopstr = ft_strjoin(mas[1], "=")))
+				return (-1);
 			if (ft_strstr(dopenvl[len], dopstr) == dopenvl[len])
 				dopenvl[len][0] = -128;
 			len++;
 			ft_strdel(&dopstr);
 		}
-		*envl = dopenvl;
-        if (ft_strcmp(mas[0], "setenv") == 0)
-            return (ft_setenv(mas, envl, *envl, 1));
-        else if (ft_strcmp(mas[0], "unsetenv") == 0)
-		    return (ft_setenv(mas, envl, *envl, 0));
+		if (ft_strcmp(mas[0], "setenv") == 0)
+			return (ft_setenv(mas, envl, *envl, 1));
+		else if (ft_strcmp(mas[0], "unsetenv") == 0)
+			return (ft_setenv(mas, envl, *envl, 0));
 	}
 	return (0);
 }
 
-int     ft_setenv(char **mas, char ***envl, char **dopmas, int type)
+int		ft_dop_setenv(char **mas, int i, char **dopenvl, char ***envl)
 {
-	int		len;
+	if (!(dopenvl[i] = (char *)malloc(sizeof(char *) * (ft_strlen(mas[1])
+			+ ft_strlen(mas[2]) + 2))))
+		return (-1);
+	ft_strcat(dopenvl[i], mas[1]);
+	ft_strcat(dopenvl[i], "=");
+	ft_strcat(dopenvl[i], mas[2]);
+	i++;
+	dopenvl[i] = NULL;
+	free_dmas(envl);
+	*envl = dopenvl;
+	return (0);
+}
+
+int		ft_setenv(char **mas, char ***envl, char **dopmas, int type)
+{
 	int		i;
 	char	**dopenvl;
 	int		c;
 
-	len = 0;
 	i = 0;
 	c = 0;
-	while (dopmas[i])
-	{
-		if (dopmas[i][0] == -128)
-			len--;
-		len++;
-		i++;
-	}
-	i = 0;
-	if (!(dopenvl = (char **)malloc(sizeof(char **) * (len + 1 + type))))
+	if (!(dopenvl = (char **)malloc(sizeof(char **) *
+			(ft_maslen_with(dopmas) + 1 + type))))
 		return (-1);
 	while (dopmas[c] != NULL)
 	{
 		if (dopmas[c][0] != -128)
 		{
-
-			dopenvl[i] = (char *)malloc(sizeof(char *) * ft_strlen(dopmas[c]));
+			if (!(dopenvl[i] = (char *)malloc(sizeof(char *)
+					* ft_strlen(dopmas[c]))))
+				return (-1);
 			ft_strcpy(dopenvl[i], dopmas[c]);
 			dopenvl[i][ft_strlen(dopmas[c]) + 1] = '\0';
 			i++;
@@ -95,30 +110,21 @@ int     ft_setenv(char **mas, char ***envl, char **dopmas, int type)
 		c++;
 	}
 	if (type == 1)
-    {
-        dopenvl[i] = (char *)malloc(sizeof(char *) * (ft_strlen(mas[1]) + ft_strlen(mas[2]) + 2));
-        ft_strcat(dopenvl[i], mas[1]);
-        ft_strcat(dopenvl[i], "=");
-        ft_strcat(dopenvl[i], mas[2]);
-        i++;
-    }
-	dopenvl[i] = NULL;
-	//free_dmas(dopmas);
-	*envl = dopenvl;
+		ft_dop_setenv(mas, i, dopenvl, envl);
 	return (0);
 }
 
-int     show_env(char **mas)
+int		show_env(char **mas)
 {
-    int n;
+	int		n;
 
-    n = 0;
-    if (sort_env(mas) == -1)
-    	return (0);
-    while (mas[n])
-    {
-        ft_printf("%s\n", mas[n]);
-        n++;
-    }
-    return (0);
+	n = 0;
+	if (sort_env(mas) == -1)
+		return (0);
+	while (mas[n])
+	{
+		ft_printf("%s\n", mas[n]);
+		n++;
+	}
+	return (0);
 }
