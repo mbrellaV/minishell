@@ -48,6 +48,7 @@ int		print_path(void)
 
 	getcwd(path, sizeof(path));
 	ft_printf("%s\n", path);
+	return (0);
 }
 
 int		find_last(char *line, char c)
@@ -64,4 +65,30 @@ int		find_last(char *line, char c)
 		i++;
 	}
 	return (res);
+}
+
+int		do_rest(char *name, char **mas, char ***env)
+{
+	int tmp;
+
+	if ((tmp = full_exe(mas, *env)) == -1)
+		return (ft_error_with(8, &mas));
+	else if (tmp != 1 && ft_strstr(name, "/"))
+		ft_printf("minishell: file not found: %s\n", name);
+	else if (tmp != 1)
+		ft_printf("minishell: command not found: %s\n", name);
+	return (0);
+}
+
+int		ft_dopenv(char **mas, char ***envl)
+{
+	if (ft_strcmp(mas[0], "setenv") == 0 && ft_maslen(mas) == 3)
+		return (ft_setenv(mas, envl, *envl, 1));
+	if (ft_strcmp(mas[0], "setenv") == 0 && ft_maslen(mas) != 3)
+		ft_error(9);
+	if (ft_strcmp(mas[0], "unsetenv") == 0 && ft_maslen(mas) == 2)
+		return (ft_setenv(mas, envl, *envl, 0));
+	if (ft_strcmp(mas[0], "unsetenv") == 0 && ft_maslen(mas) != 2)
+		ft_error(9);
+	return (0);
 }

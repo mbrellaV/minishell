@@ -26,6 +26,6 @@ int		free_dmas(char ***mas)
 		ft_strdel(&dopmas[i]);
 		i++;
 	}
-	free(dopmas);
+	free(*mas);
 	return (0);
 }

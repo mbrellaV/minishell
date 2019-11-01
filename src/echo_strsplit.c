@@ -75,7 +75,7 @@ int		count_words(char *str, char *delim)
 	{
 		if (word_size(str, delim) > 0)
 		{
-			str += word_size(str, delim) + (ISPAR(*str) ? 2 : 0);
+			str += word_size(str, delim) + (ispar(*str) ? 2 : 0);
 			i++;
 		}
 		else if (word_size(str, delim) == -1)
@@ -93,23 +93,24 @@ char	**ft_split_echo(char *str, char *delim)
 	int		i;
 	int		cn_words;
 
-	if ((cn_words = count_words(str, delim) + 1) == 0)
+	if ((cn_words = count_words(str, delim)) <= 0)
 		return (NULL);
 	i = 0;
+	cn_words++;
 	cn = 0;
-	if (!(mas = (char **)malloc(sizeof(char **) * cn_words)))
+	if (!(mas = (char **)ft_memalloc(sizeof(char **) * cn_words)))
 		return (NULL);
 	while (i < (cn_words - 1) && str[cn])
 		if (word_size(str + cn, delim) > 0 && str[cn])
 		{
-			if (!(mas[i] = ft_strsub(str, cn + (ISPAR(str[cn]) ? 1 : 0),
+			if (!(mas[i] = (char *)ft_strsub(str, cn + (ispar(str[cn]) ? 1 : 0),
 					word_size(str + cn, delim))))
-				return (NULL);
-			cn += word_size(str + cn, delim) + (ISPAR(str[cn]) ? 2 : 0);
+				return (!ft_error_with(13, &mas) ? NULL : 0);
+			cn += word_size(str + cn, delim) + (ispar(str[cn]) ? 2 : 0);
 			i++;
 		}
 		else
-			cn += 1 + (ISPAR(str[cn]) ? 1 : 0);
+			cn += 1 + (ispar(str[cn]) ? 1 : 0);
 	mas[i] = NULL;
 	return (mas);
 }

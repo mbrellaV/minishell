@@ -28,10 +28,9 @@
 # include <sys/wait.h>
 # include <sys/xattr.h>
 
-# define ISPAR(x)  (x == 34 || x == 39 ? 1 : 0)
-
 pid_t	g_pid;
 
+int		ispar(char c);
 int		do_exe(char **mas, char **envl);
 int		ft_maslen(char **mas);
 int		ft_maslen_with(char **mas);
@@ -49,5 +48,7 @@ int		free_dmas(char ***mas);
 int		ft_setenv(char **mas, char ***envl, char **dopmas, int type);
 char	**ft_split_echo(char *str, char *delim);
 int		full_env(char **mas, char ***envl);
+int		do_rest(char *name, char **mas, char ***env);
+int		ft_dopenv(char **mas, char ***envl);
 
 #endif

@@ -49,7 +49,7 @@ char	*ft_parse_cd(char **mas, char ***envl, char *homepath)
 
 	i = 0;
 	c = 0;
-	if (!(dopline = (char *)malloc(sizeof(char) * 1024)))
+	if (!(dopline = (char *)ft_memalloc(sizeof(char) * 1024)))
 		return (NULL);
 	while (mas[1][i])
 	{

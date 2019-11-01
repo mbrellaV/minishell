@@ -15,12 +15,11 @@
 int		parse_cmd(char *line, char ***env)
 {
 	char	**mas;
-	int		tmp;
 
 	if (!line || *line == '\0')
 		return (0);
 	if (!(mas = ft_split_echo(line, " \t=")))
-		return (ft_error(15));
+		return (0);
 	if (ft_strcmp(mas[0], "exit") == 0)
 		return (ft_error_with(1, &mas));
 	else if (ft_strstr(mas[0], "env") && !ft_strstr(mas[0], "/"))
@@ -31,16 +30,15 @@ int		parse_cmd(char *line, char ***env)
 		print_path();
 	else if (ft_strcmp(mas[0], "echo") == 0)
 		do_echo(line, *env);
-	else if ((tmp = full_exe(mas, *env)) == -1)
-		return (ft_error_with(8, &mas));
-	else if (tmp != 1)
-		ft_printf("minishell: command not found: %s\n", mas[0]);
+	else if (do_rest(mas[0], mas, env) != 0)
+		return (-1);
 	free_dmas(&mas);
 	return (0);
 }
 
-void	kill_pid(void)
+void	kill_pid(int a)
 {
+	a = 0;
 	if (g_pid == -100)
 	{
 		ft_printf("\r$>    ");
@@ -57,10 +55,8 @@ void	kill_pid(void)
 int		minishell(char ***envl)
 {
 	char	*cmd;
-	char	**dopenvl;
 
 	g_pid = -100;
-	dopenvl = *envl;
 	signal(SIGINT, kill_pid);
 	ft_printf("$> ");
 	while (1)
@@ -70,7 +66,7 @@ int		minishell(char ***envl)
 			if (parse_cmd(cmd, envl) == -2)
 			{
 				ft_strdel(&cmd);
-				free_dmas(&dopenvl);
+				free_dmas(envl);
 				exit(0);
 			}
 			ft_printf("$> ");
@@ -79,15 +75,15 @@ int		minishell(char ***envl)
 	}
 }
 
-char		**make_env(char **envl)
+char		**make_env(char ***envl, char ***normenv)
 {
 	char	**dopmas;
 	int		i;
 	char	**dopenvl;
 
 	i = 0;
-	dopmas = envl;
-	if (!(dopenvl = (char **)malloc(sizeof(char **) * (ft_maslen(dopmas) + 1))))
+	dopmas = *envl;
+	if (!(dopenvl = (char **)ft_memalloc(sizeof(char **) * (ft_maslen(dopmas) + 1))))
 		return (NULL);
 	while (dopmas[i] != NULL)
 	{
@@ -98,17 +94,21 @@ char		**make_env(char **envl)
 		dopenvl[i][ft_strlen(dopmas[i]) + 1] = '\0';
 		i++;
 	}
-	dopmas[i] = NULL;
-	return (dopmas);
+	dopenvl[i] = NULL;
+	*normenv = dopenvl;
+	return (dopenvl);
 }
 
 int		main(int argc, char **argv, char **envl)
 {
-	if (!(envl = make_env(envl)))
+	char	***env;
+
+	env = &envl;
+	if (!make_env(&envl, env))
 	{
 		ft_error(15);
 		exit(0);
 	}
-	minishell(&envl);
+	minishell(env);
 	return (0);
 }

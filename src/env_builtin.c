@@ -62,17 +62,16 @@ int		full_env(char **mas, char ***envl)
 			len++;
 			ft_strdel(&dopstr);
 		}
-		if (ft_strcmp(mas[0], "setenv") == 0)
-			return (ft_setenv(mas, envl, *envl, 1));
-		else if (ft_strcmp(mas[0], "unsetenv") == 0)
-			return (ft_setenv(mas, envl, *envl, 0));
+		return (ft_dopenv(mas, envl));
 	}
-	return (0);
 }
 
-int		ft_dop_setenv(char **mas, int i, char **dopenvl, char ***envl)
+int		ft_dop_setenv(char **mas, int i, char ***dopenvld, char ***envl)
 {
-	if (!(dopenvl[i] = (char *)malloc(sizeof(char *) * (ft_strlen(mas[1])
+	char	**dopenvl;
+
+	dopenvl = *dopenvld;
+	if (!(dopenvl[i] = (char *)ft_memalloc(sizeof(char *) * (ft_strlen(mas[1])
 			+ ft_strlen(mas[2]) + 2))))
 		return (-1);
 	ft_strcat(dopenvl[i], mas[1]);
@@ -81,7 +80,6 @@ int		ft_dop_setenv(char **mas, int i, char **dopenvl, char ***envl)
 	i++;
 	dopenvl[i] = NULL;
 	free_dmas(envl);
-	*envl = dopenvl;
 	return (0);
 }
 
@@ -110,7 +108,8 @@ int		ft_setenv(char **mas, char ***envl, char **dopmas, int type)
 		c++;
 	}
 	if (type == 1)
-		ft_dop_setenv(mas, i, dopenvl, envl);
+		ft_dop_setenv(mas, i, &dopenvl, envl);
+	*envl = dopenvl;
 	return (0);
 }
 

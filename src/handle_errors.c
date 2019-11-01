@@ -38,6 +38,18 @@ int		ft_error_with(int caseerror, char ***mas)
 		free_dmas(mas);
 		return (-2);
 	}
+	if (caseerror == 13)
+	{
+		free_dmas(mas);
+		return (0);
+	}
 	free_dmas(mas);
 	return (-1);
+}
+
+int		ispar(char c)
+{
+	if (c == 34 || c == 39)
+		return (1);
+	return (0);
 }
