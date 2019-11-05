@@ -39,7 +39,7 @@ int		find_exe(char *dir_name, char *filename)
 		return (ft_error(10));
 	if (!(dire = opendir(dir_name)))
 	{
-		ft_printf("cant open: %sl: \n", dir_name);
+		ft_printf("cant open2: %sl: \n", dir_name);
 		return (-1);
 	}
 	while ((pdirent = readdir(dire)) != NULL)

@@ -49,6 +49,7 @@ int		ft_setenv(char **mas, char ***envl, char **dopmas, int type);
 char	**ft_split_echo(char *str, char *delim);
 int		full_env(char **mas, char ***envl);
 int		do_rest(char *name, char **mas, char ***env);
+int		dop_go_to_dir(char *line, char ***envl);
 int		ft_dopenv(char **mas, char ***envl);
 
 #endif

@@ -42,15 +42,6 @@ int		ft_maslen_with(char **mas)
 	return (len);
 }
 
-int		print_path(void)
-{
-	char path[1024];
-
-	getcwd(path, sizeof(path));
-	ft_printf("%s\n", path);
-	return (0);
-}
-
 int		find_last(char *line, char c)
 {
 	int		i;

@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int		parse_cmd(char *line, char ***env)
+int			parse_cmd(char *line, char ***env)
 {
 	char	**mas;
 
@@ -36,7 +36,7 @@ int		parse_cmd(char *line, char ***env)
 	return (0);
 }
 
-void	kill_pid(int a)
+void		kill_pid(int a)
 {
 	a = 0;
 	if (g_pid == -100)
@@ -52,7 +52,7 @@ void	kill_pid(int a)
 	g_pid = -100;
 }
 
-int		minishell(char ***envl)
+int			minishell(char ***envl)
 {
 	char	*cmd;
 
@@ -83,7 +83,8 @@ char		**make_env(char ***envl, char ***normenv)
 
 	i = 0;
 	dopmas = *envl;
-	if (!(dopenvl = (char **)ft_memalloc(sizeof(char **) * (ft_maslen(dopmas) + 1))))
+	if (!(dopenvl = (char **)ft_memalloc(sizeof(char **) *
+			(ft_maslen(dopmas) + 1))))
 		return (NULL);
 	while (dopmas[i] != NULL)
 	{
@@ -99,7 +100,7 @@ char		**make_env(char ***envl, char ***normenv)
 	return (dopenvl);
 }
 
-int		main(int argc, char **argv, char **envl)
+int			main(int argc, char **argv, char **envl)
 {
 	char	***env;
 

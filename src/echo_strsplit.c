@@ -14,12 +14,12 @@
 
 int		isdelim(char *a, char b)
 {
+	if (ispar(b))
+		return (2);
 	while (*a)
 	{
 		if (*a == b)
 			return (1);
-		if (b == 34 || b == 39)
-			return (2);
 		a++;
 	}
 	return (0);
@@ -34,10 +34,10 @@ int		c_size(char *str, char b, char *delim)
 	str++;
 	dop = 0;
 	if (*str == b)
-		return (0);
+		return (-2);
 	while (*str && *str != b)
 	{
-		if (isdelim(delim, *str) == 0)
+		if (isdelim(delim, *str) == 0 || ispar(*str))
 			dop++;
 		i++;
 		str++;
@@ -68,18 +68,22 @@ int		word_size(char *str, char *delim)
 
 int		count_words(char *str, char *delim)
 {
-	int i;
+	int		i;
+	int		dop;
 
 	i = 0;
 	while (*str)
 	{
-		if (word_size(str, delim) > 0)
+		dop = word_size(str, delim);
+		if (dop > 0)
 		{
-			str += word_size(str, delim) + (ispar(*str) ? 2 : 0);
+			str += dop + (ispar(*str) ? 2 : 0);
 			i++;
 		}
-		else if (word_size(str, delim) == -1)
-			return (-1);
+		else if (dop == -2)
+			str += 2;
+		else if (dop == -1)
+			return (ft_error(9));
 		else
 			str++;
 	}
