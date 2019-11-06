@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-int		ft_strfind_indexd(char *s, char c)
+int		ft_strf_ind(char *s, char c)
 {
 	size_t	i;
 
@@ -58,26 +58,26 @@ int		dop_echo(char **mas, int i, int c, char **envl)
 	char	*dop;
 	char	*tmp;
 
-	while (mas[i][c])
-	{
+	while (mas[i][c] != '\0')
 		if (mas[i][c] == '$')
 		{
 			if (!(dop = ft_strsub(mas[i], c + 1,
-				ft_strfind_indexd(&mas[i][c + 1], '$') == -1
-			? ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$'))))
+								  ft_strf_ind(&mas[i][c + 1], '$') == -1
+			? ft_strlen(mas[i]) - c : ft_strf_ind(&mas[i][c + 1], '$'))))
 				return (ft_error(15));
 			if (!(tmp = find_var(dop, envl)))
 				return (0);
-			c += ft_strfind_indexd(&mas[i][c + 1], '$') == -1 ?
-			(int)ft_strlen(mas[i]) - c : ft_strfind_indexd(&mas[i][c + 1], '$');
-			ft_strdel(&dop);
+			c += 1 + (ft_strf_ind(&mas[i][c + 1], '$') == -1 ?
+			(int)ft_strlen(mas[i]) - c : ft_strf_ind(&mas[i][c + 1], '$'));
 			ft_putstr(tmp);
+			ft_strdel(&dop);
 			ft_strdel(&tmp);
 		}
 		else
+		{
 			ft_putchar(mas[i][c]);
-		c++;
-	}
+			c++;
+		}
 	return (0);
 }
 

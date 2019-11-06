@@ -72,7 +72,7 @@ int		do_cd(char **mas, char ***envl)
 	if (!(hp = find_var("HOME", *envl)))
 		return (-1);
 	if (ft_maslen(mas) != 1 && ft_maslen(mas) != 2)
-		return (-1);
+		return (ft_error(9));
 	if (mas[1] == NULL)
 		return (go_to_dir(hp, envl, path));
 	else if (ft_strcmp(mas[0], "cd") == 0 &&

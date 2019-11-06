@@ -88,22 +88,21 @@ int		ft_setenv(char **mas, char ***envl, char **dopmas, int type)
 	char	**dopenvl;
 	int		c;
 
-	i = -1;
+	i = 0;
 	c = -1;
 	if (!(dopenvl = (char **)ft_memalloc(sizeof(char **) *
 			(ft_maslen_with(dopmas) + 1 + type))))
 		return (-1);
 	while (dopmas[++c] != NULL)
-	{
 		if (dopmas[c][0] != -128)
 		{
-			if (!(dopenvl[++i] = (char *)ft_memalloc(sizeof(char *)
+			if (!(dopenvl[i] = (char *)ft_memalloc(sizeof(char *)
 					* ft_strlen(dopmas[c]))))
 				return (-1);
 			ft_strcpy(dopenvl[i], dopmas[c]);
 			dopenvl[i][ft_strlen(dopmas[c]) + 1] = '\0';
+			i++;
 		}
-	}
 	if (type == 1)
 		ft_dop_setenv(mas, i, &dopenvl, envl);
 	free_dmas(envl);
