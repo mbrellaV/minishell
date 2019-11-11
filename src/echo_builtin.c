@@ -62,13 +62,14 @@ int		dop_echo(char **mas, int i, int c, char **envl)
 		if (mas[i][c] == '$')
 		{
 			if (!(dop = ft_strsub(mas[i], c + 1,
-								  ft_strf_ind(&mas[i][c + 1], '$') == -1
+			ft_strf_ind(&mas[i][c + 1], '$') == -1
 			? ft_strlen(mas[i]) - c : ft_strf_ind(&mas[i][c + 1], '$'))))
 				return (ft_error(15));
 			if (!(tmp = find_var(dop, envl)))
 				return (0);
-			c += 1 + (ft_strf_ind(&mas[i][c + 1], '$') == -1 ?
+			c += (ft_strf_ind(&mas[i][c + 1], '$') == -1 ?
 			(int)ft_strlen(mas[i]) - c : ft_strf_ind(&mas[i][c + 1], '$'));
+			c += (mas[i][c] != '\0');
 			ft_putstr(tmp);
 			ft_strdel(&dop);
 			ft_strdel(&tmp);

@@ -34,6 +34,7 @@ int		go_to_dir(char *line, char ***envl, char *path)
 	if ((full_env(splitline, envl)) == -1)
 		return (-1);
 	ft_strdel(&dopline);
+	ft_strdel(&line);
 	free_dmas(&splitline);
 	return (0);
 }
@@ -69,10 +70,10 @@ int		do_cd(char **mas, char ***envl)
 	char	path[1024];
 	char	*hp;
 
-	if (!(hp = find_var("HOME", *envl)))
-		return (-1);
 	if (ft_maslen(mas) != 1 && ft_maslen(mas) != 2)
 		return (ft_error(9));
+	if (!(hp = find_var("HOME", *envl)))
+		return (-1);
 	if (mas[1] == NULL)
 		return (go_to_dir(hp, envl, path));
 	else if (ft_strcmp(mas[0], "cd") == 0 &&
@@ -81,13 +82,11 @@ int		do_cd(char **mas, char ***envl)
 		if ((!(l = find_var("OLDPWD", *envl)))
 		|| go_to_dir(l, envl, path) == -1)
 			return (-1);
-		ft_strdel(&l);
 		ft_strdel(&hp);
 		return (0);
 	}
 	if (!(l = ft_parse_cd(mas, envl, hp)) || go_to_dir(l, envl, path))
 		return (-1);
-	ft_strdel(&l);
 	ft_strdel(&hp);
 	return (0);
 }
